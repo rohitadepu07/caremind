@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Sparkles, ArrowRight, CheckCircle2, Flame, Heart, Bell, Calendar } from 'lucide-react';
+import logo from '../../assets/logo.png';
 
 interface ElderHomeProps {
   setActiveTab: (tab: string) => void;
@@ -9,6 +10,42 @@ interface ElderHomeProps {
 export const ElderHome: React.FC<ElderHomeProps> = ({ setActiveTab }) => {
   const { state, toggleReminder } = useApp();
   const profile = state.profile;
+
+  // PWA Installation State
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstallable, setIsInstallable] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setIsInstallable(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // If already in standalone PWA mode, don't show install button
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsInstallable(false);
+    }
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User install outcome: ${outcome}`);
+    setDeferredPrompt(null);
+    setIsInstallable(false);
+  };
+
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+  const showIOSInstall = isIOS && !isStandalone;
 
   // Find next uncompleted reminder
   const nextReminder = state.reminders.find((r) => !r.completedToday);
@@ -151,6 +188,33 @@ export const ElderHome: React.FC<ElderHomeProps> = ({ setActiveTab }) => {
         </div>
 
       </div>
+
+      {/* Install App Section (PWA) */}
+      {(isInstallable || showIOSInstall) && (
+        <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6 border-2 border-emerald-500">
+          <div className="flex items-center space-x-4">
+            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center p-2 shrink-0 shadow-lg">
+              <img src={logo} alt="Sneh Logo" className="w-full h-full object-contain rounded-xl" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold font-serif">Install CareMind</h3>
+              <p className="text-emerald-100 text-sm max-w-md mt-1">
+                {showIOSInstall 
+                  ? "Add CareMind to your home screen: Tap the Share button (📤) in Safari, then select 'Add to Home Screen'."
+                  : "Add CareMind to your home screen for quick, offline-ready access to memory games and your companion."}
+              </p>
+            </div>
+          </div>
+          {isInstallable && (
+            <button
+              onClick={handleInstallClick}
+              className="w-full sm:w-auto px-6 py-3.5 bg-amber-400 text-stone-900 font-bold rounded-2xl hover:bg-amber-300 transition-all flex items-center justify-center space-x-2 shrink-0 shadow-md text-base"
+            >
+              <span>Install App 📲</span>
+            </button>
+          )}
+        </div>
+      )}
 
     </div>
   );
