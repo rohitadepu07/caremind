@@ -21,7 +21,7 @@ function useIsDesktop() {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
-  const { state, setMode, speak, setVoiceActive } = useApp();
+  const { state, setMode, speak, setVoiceActive, updateProfile } = useApp();
   const isElder = state.mode === 'elder';
   const isDesktop = useIsDesktop();
 
@@ -125,13 +125,47 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             )}
 
             {/* Right Controls */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              {/* Language Selector */}
+              <select
+                value={state.profile.language}
+                onChange={(e) => {
+                  const selectedLang = e.target.value;
+                  updateProfile({ language: selectedLang as any });
+                  const langNames: Record<string, string> = {
+                    en: 'English',
+                    hi: 'Hindi',
+                    bn: 'Bengali',
+                    as: 'Assamese',
+                  };
+                  speak(`Language changed to ${langNames[selectedLang]}`);
+                }}
+                style={{
+                  padding: '8px 8px',
+                  borderRadius: 12,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  border: '1px solid #fcd34d',
+                  backgroundColor: '#fffbeb',
+                  color: '#92400e',
+                  outline: 'none',
+                  transition: 'all 0.2s',
+                }}
+                title="Change Language"
+              >
+                <option value="en">🌐 EN</option>
+                <option value="hi">🇮🇳 HI</option>
+                <option value="as">🌾 AS (NER)</option>
+                <option value="bn">🌊 BN (NER)</option>
+              </select>
+
               {/* Mode Switcher */}
               <button
                 onClick={() => setMode(isElder ? 'caregiver' : 'elder')}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 6,
-                  padding: '8px 14px', borderRadius: 12,
+                  padding: '8px 10px', borderRadius: 12,
                   fontSize: 13, fontWeight: 600, cursor: 'pointer',
                   border: isElder ? '1px solid #fcd34d' : '1px solid #6ee7b7',
                   backgroundColor: isElder ? '#fffbeb' : '#ecfdf5',
@@ -141,8 +175,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                 title="Switch Mode"
               >
                 {isElder ? <Shield size={15} color="#b45309" /> : <User size={15} color="#065f46" />}
-                <span style={{ display: window.innerWidth < 480 ? 'none' : 'inline' }}>
-                  {isElder ? 'Caregiver' : 'Elder'} Mode
+                <span style={{ display: window.innerWidth < 500 ? 'none' : 'inline' }}>
+                  {isElder ? 'Caregiver' : 'Elder'}
                 </span>
               </button>
 
@@ -151,14 +185,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                 onClick={() => setVoiceActive(true)}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 6,
-                  padding: '10px 14px', borderRadius: 12,
+                  padding: '9px 12px', borderRadius: 12,
                   backgroundColor: '#059669', color: '#ffffff',
                   border: 'none', cursor: 'pointer',
                   fontSize: 14, fontWeight: 500,
                   boxShadow: '0 2px 8px rgba(5,150,105,0.4)',
                   transition: 'all 0.2s',
                 }}
-                title="Talk to CareMind Assistant"
+                title="Talk to Sneh Assistant"
               >
                 <Volume2 size={18} />
                 {isDesktop && <span>Assistant</span>}
