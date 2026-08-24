@@ -17,13 +17,13 @@ export const Onboarding: React.FC = () => {
       voiceAssistance: voicePref,
       onboarded: true,
     });
-    speak(`Welcome to Sneh, ${nameInput}. Let's make today a beautiful day.`);
+    speak(`Welcome to CareMind, ${nameInput}. Let's make today a beautiful day.`);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-emerald-50 flex items-center justify-center p-4">
       <div className="bg-white border-2 border-emerald-100 max-w-xl w-full rounded-3xl shadow-2xl p-8 sm:p-10 space-y-8">
-        
+
         {/* Step Indicator */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -31,7 +31,7 @@ export const Onboarding: React.FC = () => {
               🌸
             </div>
             <div>
-              <h1 className="text-2xl font-bold font-serif text-emerald-950">Sneh Companion</h1>
+              <h1 className="text-2xl font-bold font-serif text-emerald-950">CareMind Companion</h1>
               <p className="text-sm text-stone-500">Step {step} of 3</p>
             </div>
           </div>
@@ -46,7 +46,7 @@ export const Onboarding: React.FC = () => {
         {step === 1 && (
           <div className="space-y-6 text-center py-4">
             <div className="text-6xl mb-2">🌿</div>
-            <h2 className="text-3xl font-serif font-bold text-stone-800">Welcome to Sneh 🌼</h2>
+            <h2 className="text-3xl font-serif font-bold text-stone-800">Welcome to CareMind 🌼</h2>
             <p className="text-xl text-stone-600 leading-relaxed max-w-md mx-auto">
               Let's spend a few happy moments together every day with gentle cognitive games, loving reminders, and memories.
             </p>
@@ -90,11 +90,10 @@ export const Onboarding: React.FC = () => {
                   <button
                     key={l.code}
                     onClick={() => setLangInput(l.code as Language)}
-                    className={`p-4 rounded-2xl border-2 text-left transition-all ${
-                      langInput === l.code
+                    className={`p-4 rounded-2xl border-2 text-left transition-all ${langInput === l.code
                         ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-bold'
                         : 'border-stone-200 bg-stone-50 text-stone-700 hover:border-emerald-300'
-                    }`}
+                      }`}
                   >
                     <div className="text-lg font-serif">{l.label}</div>
                     <div className="text-xs text-stone-500">{l.sub}</div>
@@ -120,7 +119,7 @@ export const Onboarding: React.FC = () => {
         {step === 3 && (
           <div className="space-y-6 py-2">
             <h2 className="text-2xl font-serif font-bold text-stone-800 text-center">Comfort Preferences</h2>
-            
+
             <div className="bg-amber-50 p-6 rounded-2xl border border-amber-200 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">

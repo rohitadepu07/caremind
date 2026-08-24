@@ -25,8 +25,8 @@ app.post('/api/ai/companion', async (req, res) => {
     }
 
     const ai = new GoogleGenAI({ apiKey });
-    
-    const systemInstruction = `You are 'Sneh', a warm, loving, and extremely gentle AI cognitive companion for an elderly dementia patient (e.g. Grandma Lakshmi, 72). 
+
+    const systemInstruction = `You are 'CareMind', a warm, loving, and extremely gentle AI cognitive companion for an elderly dementia patient (e.g. Grandma Lakshmi, 72). 
 Your tone must be exceptionally comforting, patient, respectful, and encouraging. Never use medical jargon or intimidating language. Always use supportive and uplifting words. 
 Language requested: ${language || 'English'}.
 Context: ${JSON.stringify(context || {})}`;
@@ -61,5 +61,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Sneh server running on port ${PORT}`);
+  console.log(`CareMind server running on port ${PORT}`);
 });

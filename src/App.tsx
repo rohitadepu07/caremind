@@ -16,6 +16,7 @@ import { RemindersView } from './components/elder/RemindersView';
 import { MemoryJournalView } from './components/elder/MemoryJournalView';
 import { ProfileView } from './components/elder/ProfileView';
 import { CaregiverDashboard } from './components/caregiver/CaregiverDashboard';
+import { SplashScreen } from './components/SplashScreen';
 
 function MainContent() {
   const { state } = useApp();
@@ -51,9 +52,12 @@ function MainContent() {
 }
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
   return (
     <AppProvider>
-      <MainContent />
+      {showSplash && <SplashScreen onFinished={() => setShowSplash(false)} />}
+      {!showSplash && <MainContent />}
     </AppProvider>
   );
 }

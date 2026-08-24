@@ -26,7 +26,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, setState] = useState<AppState>(() => {
     try {
-      const saved = localStorage.getItem('sneh_app_state_v2');
+      const saved = localStorage.getItem('CareMind_app_state_v2');
       if (saved) {
         return JSON.parse(saved);
       }
@@ -38,7 +38,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   useEffect(() => {
     try {
-      localStorage.setItem('sneh_app_state_v2', JSON.stringify(state));
+      localStorage.setItem('CareMind_app_state_v2', JSON.stringify(state));
     } catch (e) {
       console.error('Failed to save state to localStorage', e);
     }

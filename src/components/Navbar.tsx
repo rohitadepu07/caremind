@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { Volume2, Shield, User } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 interface NavbarProps {
   activeTab: string;
@@ -67,16 +68,20 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
 
             {/* Logo */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{
-                width: 48, height: 48,
-                backgroundColor: '#10b981',
-                borderRadius: 16,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 24, boxShadow: '0 2px 8px rgba(16,185,129,0.3)',
-              }}>🌸</div>
+              <img
+                src={logo}
+                alt="CareMind Logo"
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 16,
+                  objectFit: 'cover',
+                  boxShadow: '0 2px 8px rgba(16,185,129,0.3)',
+                }}
+              />
               <div>
                 <span style={{ fontSize: 22, fontWeight: 700, color: '#064e3b', fontFamily: 'serif' }}>
-                  Sneh{' '}
+                  CareMind{' '}
                   <span style={{
                     fontSize: 12, fontWeight: 400, fontFamily: 'sans-serif',
                     color: '#92400e', backgroundColor: '#fffbeb',
@@ -153,7 +158,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                   boxShadow: '0 2px 8px rgba(5,150,105,0.4)',
                   transition: 'all 0.2s',
                 }}
-                title="Talk to Sneh Assistant"
+                title="Talk to CareMind Assistant"
               >
                 <Volume2 size={18} />
                 {isDesktop && <span>Assistant</span>}
