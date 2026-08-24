@@ -1,0 +1,6 @@
+{
+  "name": "Sneh - AI Dementia Cognitive Companion",
+  "description": "A warm, elderly-friendly AI-powered cognitive assistance platform featuring adaptive games, memory garden, reminders, family connection quests, and caregiver dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
