@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Sparkles, ArrowRight, RotateCcw, CheckCircle2 } from 'lucide-react';
+import { t } from '../../translations';
 
 interface GamesHubProps {
   onBackToHome: () => void;
@@ -8,6 +9,7 @@ interface GamesHubProps {
 
 export const GamesHub: React.FC<GamesHubProps> = ({ onBackToHome }) => {
   const { state, completeActivity, speak } = useApp();
+  const lang = state.profile.language;
   const [activeGame, setActiveGame] = useState<string | null>(null);
 
   // Memory Match game state
@@ -86,11 +88,11 @@ export const GamesHub: React.FC<GamesHubProps> = ({ onBackToHome }) => {
       {/* Header */}
       <div className="bg-gradient-to-r from-teal-600 to-emerald-700 text-white rounded-3xl p-8 sm:p-10 shadow-xl space-y-3">
         <span className="bg-white/20 text-teal-50 px-4 py-1.5 rounded-full text-sm font-medium">
-          🧠 Gentle Cognitive Play
+          {t('cognitive_play_label', lang)}
         </span>
-        <h1 className="text-3xl sm:text-4xl font-serif font-bold">Mindful Games</h1>
+        <h1 className="text-3xl sm:text-4xl font-serif font-bold">{t('games_hub_title', lang)}</h1>
         <p className="text-xl text-teal-100 max-w-xl">
-          Designed with adaptive difficulty just for you. Take your time and enjoy every moment.
+          {t('games_hub_subtitle', lang)}
         </p>
       </div>
 

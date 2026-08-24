@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { Volume2, X, Sparkles, Send, Mic, Heart } from 'lucide-react';
 import logo from '../assets/logo.png';
+import { t } from '../translations';
 
 export const VoiceAssistant: React.FC = () => {
   const { state, setVoiceActive, speak, askAI } = useApp();
+  const lang = state.profile.language;
   const [inputMessage, setInputMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [chatLog, setChatLog] = useState<{ sender: 'ai' | 'user'; text: string }[]>([
     {
       sender: 'ai',
-      text: `Good day, ${state.profile.name}! I am Sneh, your companion. Would you like to play today's gentle memory game or listen to a soothing reminder?`,
+      text: t('assistant_welcome', lang),
     },
   ]);
 
@@ -73,7 +75,7 @@ export const VoiceAssistant: React.FC = () => {
         };
         recognition.lang = langCodes[state.profile.language] || 'en-US';
         recognition.start();
-        speak('I am listening.');
+        speak(state.profile.language === 'hi' ? 'मैं सुन रहा हूँ' : 'I am listening.');
       } catch (err) {
         console.error('Failed to start speech recognition:', err);
       }
@@ -112,14 +114,14 @@ export const VoiceAssistant: React.FC = () => {
           speak('Hello! I am here with you. How are you feeling today?');
         }}
         className="fixed bottom-24 lg:bottom-6 right-6 z-50 bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl hover:bg-emerald-700 transition-all flex items-center space-x-2 border-2 border-white"
-        title="Open Sneh Voice Companion"
+        title={t('talk_to_sneh', lang)}
       >
         <img
           src={logo}
           alt="Sneh Logo"
           className="w-8 h-8 rounded-xl object-contain animate-bounce"
         />
-        <span className="font-bold text-lg hidden sm:inline pr-2">Talk to Sneh</span>
+        <span className="font-bold text-lg hidden sm:inline pr-2">{t('talk_to_sneh', lang)}</span>
       </button>
     );
   }
@@ -139,8 +141,8 @@ export const VoiceAssistant: React.FC = () => {
               />
             </div>
             <div>
-              <h3 className="text-2xl font-bold font-serif">Sneh Voice Companion</h3>
-              <p className="text-emerald-100 text-sm">Always here to listen and encourage</p>
+              <h3 className="text-2xl font-bold font-serif">{t('assistant_title', lang)}</h3>
+              <p className="text-emerald-100 text-sm">{t('assistant_subtitle', lang)}</p>
             </div>
           </div>
           <button
@@ -184,7 +186,7 @@ export const VoiceAssistant: React.FC = () => {
                     className="mt-2 text-xs text-emerald-600 hover:text-emerald-800 flex items-center space-x-1 font-sans font-semibold bg-emerald-50 px-2.5 py-1 rounded-lg w-fit"
                   >
                     <Volume2 className="w-3.5 h-3.5" />
-                    <span>Read Aloud</span>
+                    <span>{t('read_aloud', lang)}</span>
                   </button>
                 )}
               </div>
@@ -198,7 +200,7 @@ export const VoiceAssistant: React.FC = () => {
                 className="w-10 h-10 rounded-2xl object-cover shadow-md shrink-0 bg-white p-1 border border-emerald-100"
               />
               <div className="bg-white p-4 rounded-2xl border border-emerald-100 text-stone-500 animate-pulse">
-                Sneh is thinking gently...
+                {t('sneh_thinking', lang)}
               </div>
             </div>
           )}
@@ -208,27 +210,27 @@ export const VoiceAssistant: React.FC = () => {
         <div className="px-6 py-2 bg-amber-100/50 flex flex-wrap gap-2 border-t border-amber-200">
           <button
             onClick={() => {
-              setInputMessage("What is today's memory game?");
+              setInputMessage(state.profile.language === 'hi' ? "आज का स्मृति खेल क्या है?" : "What is today's memory game?");
             }}
             className="bg-white text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-sm font-medium hover:bg-amber-50 transition-all"
           >
-            🧠 Game guidance
+            {t('game_guidance', lang)}
           </button>
           <button
             onClick={() => {
-              setInputMessage("Tell me a comforting thought.");
+              setInputMessage(state.profile.language === 'hi' ? "मुझे कोई आरामदायक विचार बताएं।" : "Tell me a comforting thought.");
             }}
             className="bg-white text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-sm font-medium hover:bg-amber-50 transition-all"
           >
-            💬 Comforting thought
+            {t('comforting_thought', lang)}
           </button>
           <button
             onClick={() => {
-              setInputMessage("What medicines do I have today?");
+              setInputMessage(state.profile.language === 'hi' ? "आज मेरी कौन सी दवाइयाँ हैं?" : "What medicines do I have today?");
             }}
             className="bg-white text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-sm font-medium hover:bg-amber-50 transition-all"
           >
-            💊 Medicine reminders
+            {t('medicine_reminders', lang)}
           </button>
         </div>
 
@@ -238,7 +240,7 @@ export const VoiceAssistant: React.FC = () => {
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder={isListening ? "Listening... Speak now..." : "Type or ask Sneh anything..."}
+            placeholder={isListening ? t('listening_speak', lang) : t('type_or_ask', lang)}
             className="flex-1 bg-stone-100 border border-stone-300 rounded-2xl px-4 py-3 text-lg text-stone-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
 

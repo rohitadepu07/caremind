@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { Volume2, Shield, User } from 'lucide-react';
 import logo from '../assets/logo.png';
+import { t } from '../translations';
 
 interface NavbarProps {
   activeTab: string;
@@ -24,13 +25,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const { state, setMode, speak, setVoiceActive, updateProfile } = useApp();
   const isElder = state.mode === 'elder';
   const isDesktop = useIsDesktop();
+  const lang = state.profile.language;
 
   const elderTabs = [
-    { id: 'home', label: 'Home', icon: '🏠' },
-    { id: 'play', label: 'Play', icon: '🧠' },
-    { id: 'garden', label: 'Garden', icon: '🌱' },
-    { id: 'memories', label: 'Memories', icon: '💭' },
-    { id: 'profile', label: 'Profile', icon: '👤' },
+    { id: 'home', label: t('home', lang), icon: '🏠' },
+    { id: 'play', label: t('play', lang), icon: '🧠' },
+    { id: 'garden', label: t('garden', lang), icon: '🌱' },
+    { id: 'memories', label: t('memories', lang), icon: '💭' },
+    { id: 'profile', label: t('profile', lang), icon: '👤' },
   ];
 
   const caregiverTabs = [
@@ -67,29 +69,21 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 72 }}>
 
             {/* Logo */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <img
                 src={logo}
-                alt="CareMind Logo"
+                alt="Sneh Logo"
                 style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 16,
+                  width: 44,
+                  height: 44,
+                  borderRadius: 14,
                   objectFit: 'cover',
-                  boxShadow: '0 2px 8px rgba(16,185,129,0.3)',
+                  boxShadow: '0 2px 6px rgba(16,185,129,0.2)',
                 }}
               />
-              <div>
-                <span style={{ fontSize: 22, fontWeight: 700, color: '#064e3b', fontFamily: 'serif' }}>
-                  CareMind{' '}
-                  <span style={{
-                    fontSize: 12, fontWeight: 400, fontFamily: 'sans-serif',
-                    color: '#92400e', backgroundColor: '#fffbeb',
-                    padding: '2px 8px', borderRadius: 99, marginLeft: 4,
-                  }}>Companion</span>
-                </span>
-                <p style={{ fontSize: 11, color: '#78716c', margin: 0 }}>Gentle Cognitive Care &amp; Memories</p>
-              </div>
+              <span style={{ fontSize: 24, fontWeight: 800, color: '#064e3b', fontFamily: 'serif', letterSpacing: '0.3px' }}>
+                {t('app_name', lang)}
+              </span>
             </div>
 
             {/* Desktop: Nav Tabs in top bar */}
@@ -141,7 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                   speak(`Language changed to ${langNames[selectedLang]}`);
                 }}
                 style={{
-                  padding: '8px 8px',
+                  padding: '8px 6px',
                   borderRadius: 12,
                   fontSize: 13,
                   fontWeight: 600,
@@ -175,28 +169,30 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                 title="Switch Mode"
               >
                 {isElder ? <Shield size={15} color="#b45309" /> : <User size={15} color="#065f46" />}
-                <span style={{ display: window.innerWidth < 500 ? 'none' : 'inline' }}>
-                  {isElder ? 'Caregiver' : 'Elder'}
+                <span className="hidden sm:inline">
+                  {isElder ? t('caregiver', lang) : t('elder', lang)}
                 </span>
               </button>
 
-              {/* Voice Button */}
-              <button
-                onClick={() => setVoiceActive(true)}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 6,
-                  padding: '9px 12px', borderRadius: 12,
-                  backgroundColor: '#059669', color: '#ffffff',
-                  border: 'none', cursor: 'pointer',
-                  fontSize: 14, fontWeight: 500,
-                  boxShadow: '0 2px 8px rgba(5,150,105,0.4)',
-                  transition: 'all 0.2s',
-                }}
-                title="Talk to Sneh Assistant"
-              >
-                <Volume2 size={18} />
-                {isDesktop && <span>Assistant</span>}
-              </button>
+              {/* Voice Button - Desktop Only */}
+              {isDesktop && (
+                <button
+                  onClick={() => setVoiceActive(true)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 6,
+                    padding: '9px 12px', borderRadius: 12,
+                    backgroundColor: '#059669', color: '#ffffff',
+                    border: 'none', cursor: 'pointer',
+                    fontSize: 14, fontWeight: 500,
+                    boxShadow: '0 2px 8px rgba(5,150,105,0.4)',
+                    transition: 'all 0.2s',
+                  }}
+                  title="Talk to Sneh Assistant"
+                >
+                  <Volume2 size={18} />
+                  <span>{t('assistant', lang)}</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -217,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             boxShadow: '0 -4px 20px rgba(0,0,0,0.08)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-around',
+            justify: 'space-around',
             paddingTop: 8,
             paddingBottom: 'max(8px, env(safe-area-inset-bottom))',
           }}
