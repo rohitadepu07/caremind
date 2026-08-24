@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+/* ── Responsive Navigation ── */
+/* Desktop (≥1024px): show top nav tabs, hide bottom bar */
+@media (min-width: 1024px) {
+  .bottom-nav-bar {
+    display: none !important;
+  }
+  .top-nav-tabs {
+    display: flex !important;
+  }
+}
+
+/* Mobile + Tablet (<1024px): hide top nav tabs, show bottom bar */
+@media (max-width: 1023px) {
+  .top-nav-tabs {
+    display: none !important;
+  }
+  .bottom-nav-bar {
+    display: flex !important;
+  }
+}

@@ -28,7 +28,7 @@ function MainContent() {
   const isElder = state.mode === 'elder';
 
   return (
-    <div className="min-h-screen bg-stone-50 font-sans text-stone-900 selection:bg-emerald-200">
+    <div className="min-h-screen bg-stone-50 font-sans text-stone-900 selection:bg-emerald-200 pb-20 lg:pb-0">
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main>
