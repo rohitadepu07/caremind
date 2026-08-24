@@ -213,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             boxShadow: '0 -4px 20px rgba(0,0,0,0.08)',
             display: 'flex',
             alignItems: 'center',
-            justify: 'space-around',
+            justifyContent: 'space-around',
             paddingTop: 8,
             paddingBottom: 'max(8px, env(safe-area-inset-bottom))',
           }}
