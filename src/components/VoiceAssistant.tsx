@@ -114,14 +114,14 @@ export const VoiceAssistant: React.FC = () => {
           speak('Hello! I am here with you. How are you feeling today?');
         }}
         className="fixed bottom-24 lg:bottom-6 right-6 z-50 bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl hover:bg-emerald-700 transition-all flex items-center space-x-2 border-2 border-white"
-        title={t('talk_to_sneh', lang)}
+        title={t('talk_to_CareMind', lang)}
       >
         <img
           src={logo}
-          alt="Sneh Logo"
+          alt="CareMind Logo"
           className="w-8 h-8 rounded-xl object-contain animate-bounce"
         />
-        <span className="font-bold text-lg hidden sm:inline pr-2">{t('talk_to_sneh', lang)}</span>
+        <span className="font-bold text-lg hidden sm:inline pr-2">{t('talk_to_CareMind', lang)}</span>
       </button>
     );
   }
@@ -134,9 +134,9 @@ export const VoiceAssistant: React.FC = () => {
         <div className="bg-emerald-700 text-white p-5 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center p-1.5 shadow-inner shrink-0">
-              <img 
-                src={logo} 
-                alt="Sneh Logo" 
+              <img
+                src={logo}
+                alt="CareMind Logo"
                 className="w-full h-full object-contain rounded-lg"
               />
             </div>
@@ -169,14 +169,14 @@ export const VoiceAssistant: React.FC = () => {
               ) : (
                 <img
                   src={logo}
-                  alt="Sneh AI"
+                  alt="CareMind AI"
                   className="w-10 h-10 rounded-2xl object-cover shadow-md shrink-0 bg-white p-1 border border-emerald-100"
                 />
               )}
               <div
                 className={`p-4 rounded-2xl max-w-[80%] shadow-sm ${msg.sender === 'user'
-                    ? 'bg-amber-600 text-white rounded-tr-none text-lg'
-                    : 'bg-white text-stone-800 border border-emerald-100 rounded-tl-none text-xl font-serif'
+                  ? 'bg-amber-600 text-white rounded-tr-none text-lg'
+                  : 'bg-white text-stone-800 border border-emerald-100 rounded-tl-none text-xl font-serif'
                   }`}
               >
                 <p>{msg.text}</p>
@@ -196,11 +196,11 @@ export const VoiceAssistant: React.FC = () => {
             <div className="flex items-center space-x-3">
               <img
                 src={logo}
-                alt="Sneh AI"
+                alt="CareMind AI"
                 className="w-10 h-10 rounded-2xl object-cover shadow-md shrink-0 bg-white p-1 border border-emerald-100"
               />
               <div className="bg-white p-4 rounded-2xl border border-emerald-100 text-stone-500 animate-pulse">
-                {t('sneh_thinking', lang)}
+                {t('CareMind_thinking', lang)}
               </div>
             </div>
           )}
@@ -249,11 +249,10 @@ export const VoiceAssistant: React.FC = () => {
             <button
               type="button"
               onClick={toggleListening}
-              className={`p-3 rounded-2xl transition-all border-2 ${
-                isListening
+              className={`p-3 rounded-2xl transition-all border-2 ${isListening
                   ? 'bg-rose-600 text-white border-rose-500 animate-pulse shadow-rose-200 shadow-lg'
                   : 'bg-emerald-100 text-emerald-800 border-emerald-200 hover:bg-emerald-200'
-              }`}
+                }`}
               title={isListening ? "Stop listening" : "Start speaking"}
             >
               <Mic className="w-5.5 h-5.5" />

@@ -1,6 +1,6 @@
-# 🌸 CareMind (Sneh) — AI Dementia Cognitive Companion
+# 🌸 CareMind (CareMind) — AI Dementia Cognitive Companion
 
-CareMind (codename: *Sneh*) is a warm, loving, and gentle AI-driven cognitive companion designed to support elderly individuals living with dementia (such as Alzheimer's) while providing valuable insights and status updates to their caregivers.
+CareMind (codename: *CareMind*) is a warm, loving, and gentle AI-driven cognitive companion designed to support elderly individuals living with dementia (such as Alzheimer's) while providing valuable insights and status updates to their caregivers.
 
 The application offers two distinct modes:
 *   **Elder Mode:** A simplified, high-accessibility interface with large elements, voice assistant integration, gentle games, and memory journals.
@@ -11,7 +11,7 @@ The application offers two distinct modes:
 ## 🌟 Key Features
 
 ### 👴 Elder Interface (Accessibility First)
-*   **Sneh Voice Companion:** A conversational assistant powered by Google Gemini AI, offering comforting, patient, and respectful audio interactions.
+*   **CareMind Voice Companion:** A conversational assistant powered by Google Gemini AI, offering comforting, patient, and respectful audio interactions.
 *   **Play (Games Hub):** Simple, science-backed cognitive exercises like *Memory Match*, *Pattern Match*, and *Word Association*.
 *   **Memory Garden:** A visual, interactive representation of cognitive milestones where completed tasks grow flowers in a virtual garden.
 *   **Memory Journal:** An easy way for seniors to document memories, upload pictures, and store family stories.

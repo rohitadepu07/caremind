@@ -3,7 +3,7 @@ import { Language } from './types';
 export const translations = {
   en: {
     // Navbar & Common
-    app_name: 'Sneh',
+    app_name: 'CareMind',
     home: 'Home',
     play: 'Play',
     garden: 'Garden',
@@ -12,7 +12,7 @@ export const translations = {
     caregiver: 'Caregiver',
     elder: 'Elder',
     assistant: 'Assistant',
-    talk_to_sneh: 'Talk to Sneh',
+    talk_to_CareMind: 'Talk to CareMind',
 
     // Elder Home
     peaceful_morning: '☀️ Peaceful Morning',
@@ -42,12 +42,12 @@ export const translations = {
     install_btn: 'Install App 📲',
 
     // Assistant Modal
-    assistant_title: 'Sneh Voice Companion',
+    assistant_title: 'CareMind Voice Companion',
     assistant_subtitle: 'Always here to listen and encourage',
-    assistant_welcome: 'Good day, Grandma Lakshmi Devi! I am Sneh, your companion. Would you like to play today\'s gentle memory game or listen to a soothing reminder?',
+    assistant_welcome: 'Good day, Grandma Lakshmi Devi! I am CareMind, your companion. Would you like to play today\'s gentle memory game or listen to a soothing reminder?',
     read_aloud: 'Read Aloud',
-    sneh_thinking: 'Sneh is thinking gently...',
-    type_or_ask: 'Type or ask Sneh anything...',
+    CareMind_thinking: 'CareMind is thinking gently...',
+    type_or_ask: 'Type or ask CareMind anything...',
     listening_speak: 'Listening... Speak now...',
     game_guidance: '🧠 Game guidance',
     comforting_thought: '💬 Comforting thought',
@@ -72,7 +72,7 @@ export const translations = {
     caregiver: 'देखभालकर्ता',
     elder: 'वरिष्ठ',
     assistant: 'सहायक',
-    talk_to_sneh: 'स्नेह से बात करें',
+    talk_to_CareMind: 'स्नेह से बात करें',
 
     // Elder Home
     peaceful_morning: '☀️ शांत प्रभात',
@@ -106,7 +106,7 @@ export const translations = {
     assistant_subtitle: 'सुनने और प्रोत्साहित करने के लिए हमेशा यहाँ',
     assistant_welcome: 'शुभ दिन, दादी लक्ष्मी देवी! मैं स्नेह हूँ, आपकी साथी। क्या आप आज का स्मृति खेल खेलना चाहेंगी या कोई आरामदायक रिमाइंडर सुनना चाहेंगी?',
     read_aloud: 'ज़ोर से पढ़ें',
-    sneh_thinking: 'स्नेह धीरे-धीरे सोच रही है...',
+    CareMind_thinking: 'स्नेह धीरे-धीरे सोच रही है...',
     type_or_ask: 'टाइप करें या स्नेह से कुछ भी पूछें...',
     listening_speak: 'सुन रहा हूँ... अब बोलें...',
     game_guidance: '🧠 खेल मार्गदर्शन',
@@ -132,7 +132,7 @@ export const translations = {
     caregiver: 'সেবাকারী',
     elder: 'প্রবীণ',
     assistant: 'সহকারী',
-    talk_to_sneh: 'স্নেহের সাথে কথা বলুন',
+    talk_to_CareMind: 'স্নেহের সাথে কথা বলুন',
 
     // Elder Home
     peaceful_morning: '☀️ শান্তিপূর্ণ সকাল',
@@ -166,7 +166,7 @@ export const translations = {
     assistant_subtitle: 'শুনতে এবং উৎসাহিত করতে সর্বদা এখানে',
     assistant_welcome: 'শুভ দিন, ঠাকুরমা লক্ষ্মী দেবী! আমি স্নেহ, আপনার সঙ্গী। আপনি কি আজকের স্মৃতি গেম খেলতে চান নাকি কোনো সুসংবাদ শুনতে চান?',
     read_aloud: 'শব্দ করে পড়ুন',
-    sneh_thinking: 'স্নেহ আলতো করে ভাবছে...',
+    CareMind_thinking: 'স্নেহ আলতো করে ভাবছে...',
     type_or_ask: 'টাইপ করুন বা স্নেহকে কিছু জিজ্ঞাসা করুন...',
     listening_speak: 'শুনছি... এখন বলুন...',
     game_guidance: '🧠 গেম নির্দেশিকা',
@@ -192,7 +192,7 @@ export const translations = {
     caregiver: 'সেৱাকাৰী',
     elder: 'জ্যেষ্ঠ',
     assistant: 'সহায়ক',
-    talk_to_sneh: 'স্নেহৰ সৈতে কথা কওক',
+    talk_to_CareMind: 'স্নেহৰ সৈতে কথা কওক',
 
     // Elder Home
     peaceful_morning: '☀️ শান্তিপূৰ্ণ ৰাতিপুৱা',
@@ -226,7 +226,7 @@ export const translations = {
     assistant_subtitle: 'শুনিবলৈ আৰু উৎসাহিত কৰিবলৈ সদায় ইয়াত',
     assistant_welcome: 'শুভ দিন, আইতা লক্ষ্মী দেৱী! মই স্নেহ, আপোনাৰ সংগী। আপুনি আজিৰ খেল খেলিব বিচাৰেনে?',
     read_aloud: 'শব্দ কৰি পঢ়ক',
-    sneh_thinking: 'স্নেহে ধীৰে ধীৰে ভাবি আছে...',
+    CareMind_thinking: 'স্নেহে ধীৰে ধীৰে ভাবি আছে...',
     type_or_ask: 'টাইপ কৰক বা স্নেহক যিকোনো কথা সোধক...',
     listening_speak: 'শুনি আছোঁ... এতিয়া কওক...',
     game_guidance: '🧠 খেল নিৰ্দেশনা',

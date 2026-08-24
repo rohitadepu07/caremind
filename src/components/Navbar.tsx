@@ -72,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <img
                 src={logo}
-                alt="Sneh Logo"
+                alt="CareMind Logo"
                 style={{
                   width: 44,
                   height: 44,
@@ -187,7 +187,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                     boxShadow: '0 2px 8px rgba(5,150,105,0.4)',
                     transition: 'all 0.2s',
                   }}
-                  title="Talk to Sneh Assistant"
+                  title="Talk to CareMind Assistant"
                 >
                   <Volume2 size={18} />
                   <span>{t('assistant', lang)}</span>

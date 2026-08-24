@@ -54,7 +54,7 @@ export const ElderHome: React.FC<ElderHomeProps> = ({ setActiveTab }) => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 pb-24">
-      
+
       {/* Greeting Banner */}
       <div className="bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-3xl p-8 sm:p-10 shadow-xl relative overflow-hidden">
         <div className="absolute right-[-20px] bottom-[-20px] text-9xl opacity-10 select-none">🌸</div>
@@ -99,11 +99,10 @@ export const ElderHome: React.FC<ElderHomeProps> = ({ setActiveTab }) => {
             <div key={idx} className="flex flex-col items-center space-y-1.5">
               <span className="text-xs font-bold text-stone-500">{item.day}</span>
               <div
-                className={`w-10 h-10 rounded-2xl flex items-center justify-center text-lg font-bold shadow-sm ${
-                  item.completed
+                className={`w-10 h-10 rounded-2xl flex items-center justify-center text-lg font-bold shadow-sm ${item.completed
                     ? 'bg-emerald-600 text-white'
                     : 'bg-stone-100 text-stone-400 border border-stone-200'
-                }`}
+                  }`}
               >
                 {item.completed ? '✓' : '○'}
               </div>
@@ -141,7 +140,7 @@ export const ElderHome: React.FC<ElderHomeProps> = ({ setActiveTab }) => {
 
       {/* Grid: Family Connection & Quick Reminders */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
+
         {/* Family Connection Quest Card ❤️ */}
         <div className="bg-white border-2 border-rose-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4 flex flex-col justify-between">
           <div className="space-y-3">
@@ -198,12 +197,12 @@ export const ElderHome: React.FC<ElderHomeProps> = ({ setActiveTab }) => {
         <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6 border-2 border-emerald-500">
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center p-2 shrink-0 shadow-lg">
-              <img src={logo} alt="Sneh Logo" className="w-full h-full object-contain rounded-xl" />
+              <img src={logo} alt="CareMind Logo" className="w-full h-full object-contain rounded-xl" />
             </div>
             <div>
               <h3 className="text-xl font-bold font-serif">{t('install_caremind', lang)}</h3>
               <p className="text-emerald-100 text-sm max-w-md mt-1">
-                {showIOSInstall 
+                {showIOSInstall
                   ? t('install_ios_desc', lang)
                   : t('install_desc', lang)}
               </p>
