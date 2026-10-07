@@ -381,6 +381,7 @@
 .login-visibility-button:focus-visible,
 .login-submit:focus-visible,
 .login-guest:focus-visible,
+.login-google:focus-visible,
 .login-brand:focus-visible {
   outline: 3px solid #e1b66f;
   outline-offset: 3px;
@@ -394,7 +395,8 @@
 }
 
 .login-submit,
-.login-guest {
+.login-guest,
+.login-google {
   display: flex;
   min-height: 52px;
   align-items: center;
@@ -445,6 +447,32 @@
   border: 1px solid #dce4de;
   background: #fffefa;
   color: #34594a;
+}
+
+.login-alternatives {
+  display: grid;
+  gap: 10px;
+}
+
+.login-google {
+  width: 100%;
+  border: 1px solid #dce4de;
+  background: #fff;
+  color: #35463f;
+}
+
+.login-google:hover:not(:disabled) {
+  background: #f8faf8;
+}
+
+.login-google:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.login-google-icon {
+  width: 18px;
+  height: 18px;
 }
 
 .login-guest:hover {
@@ -550,7 +578,8 @@
 @media (prefers-reduced-motion: reduce) {
   .login-input-wrap,
   .login-submit,
-  .login-guest {
+  .login-guest,
+  .login-google {
     transition: none;
   }
 }

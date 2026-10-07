@@ -85,6 +85,28 @@ export const LoginPage: React.FC<LoginPageProps> = ({
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    if (!supabase) {
+      setMessage('Supabase is not configured. Add the project URL and publishable key to your local environment file.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage('');
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin,
+        },
+      });
+      if (error) throw error;
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'Unable to sign in with Google. Please try again.');
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="login-page">
       <section className="login-welcome" aria-label="Welcome to CareMind">
@@ -238,9 +260,25 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           {!isPasswordRecovery && <div className="login-divider"><span>OR</span></div>}
 
           {!isPasswordRecovery && (
-            <button className="login-guest" type="button" onClick={onContinueAsGuest}>
-              Explore as a guest <ArrowRight size={18} />
-            </button>
+            <div className="login-alternatives">
+              <button
+                className="login-google"
+                type="button"
+                onClick={() => void handleGoogleSignIn()}
+                disabled={isSubmitting || !isSupabaseConfigured}
+              >
+                <svg aria-hidden="true" viewBox="0 0 48 48" className="login-google-icon">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z" transform="translate(0 3)" />
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.73 7.18l7.63 5.91c4.45-4.11 7.14-10.16 7.14-17.56Z" transform="translate(0 0)" />
+                  <path fill="#FBBC05" d="M10.53 28.59a14.4 14.4 0 0 1 0-9.18l-7.98-6.19a23.98 23.98 0 0 0 0 21.56l7.98-6.19Z" transform="translate(0 0)" />
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.91-5.79l-7.63-5.91c-2.13 1.43-4.86 2.27-8.28 2.27-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48Z" transform="translate(0 -3)" />
+                </svg>
+                {isSubmitting ? 'Connecting to Google…' : 'Continue with Google'}
+              </button>
+              <button className="login-guest" type="button" onClick={onContinueAsGuest}>
+                Explore as a guest <ArrowRight size={18} />
+              </button>
+            </div>
           )}
 
           {!isPasswordRecovery && <p className="login-demo-note">

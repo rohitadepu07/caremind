@@ -75,9 +75,10 @@ Start the development server (runs both frontend and backend):
 ### Supabase Authentication and Data
 1. Copy `.env.example` to `.env.local` and set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` from your Supabase project settings. The publishable key is safe for browser use; never put a service-role key in frontend configuration.
 2. In the Supabase SQL Editor, run [`supabase/schema.sql`](./supabase/schema.sql) to create the per-user app data table and enable row-level security.
-3. In Supabase Authentication settings, configure the allowed site URL and redirect URLs for the local development URL and your deployed app. Email confirmation and password recovery require working email delivery settings.
+3. To enable Google sign-in, configure the Google provider under Supabase Authentication → Sign In / Providers with your Google OAuth client ID and secret. Add the callback URL shown by Supabase to the authorized redirect URIs in Google Cloud Console.
+4. In Supabase Authentication settings, configure the allowed site URL and redirect URLs for the local development URL and your deployed app. Email confirmation and password recovery require working email delivery settings.
 
-Users can create an account, sign in, reset passwords, and sign out. CareMind stores each authenticated user's app state in the protected `caremind_user_data` table and keeps a per-account browser copy for offline continuity. Guest mode remains local to the browser.
+Users can create an account, sign in with email/password or Google, reset passwords, and sign out. CareMind stores each authenticated user's app state in the protected `caremind_user_data` table and keeps a per-account browser copy for offline continuity. Guest mode remains local to the browser.
 
 ---
 
