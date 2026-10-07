@@ -57,7 +57,7 @@ function MainContent({ onSignOut, authError }: { onSignOut?: () => void; authErr
             {activeTab === 'play' && <GamesHub onBackToHome={() => setActiveTab('home')} />}
             {activeTab === 'garden' && <MemoryGardenView />}
             {activeTab === 'memories' && <MemoryJournalView />}
-            {activeTab === 'profile' && <ProfileView />}
+            {activeTab === 'profile' && <ProfileView onSignOut={onSignOut} />}
           </>
         ) : (
           <CaregiverDashboard activeTab={activeTab} setActiveTab={setActiveTab} />

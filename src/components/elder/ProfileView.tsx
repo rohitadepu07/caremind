@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Sparkles, User, Globe, Volume2, Shield, Star, Check } from 'lucide-react';
+import { Sparkles, User, Globe, Volume2, Shield, Star, Check, LogOut } from 'lucide-react';
 
-export const ProfileView: React.FC = () => {
+interface ProfileViewProps {
+  onSignOut?: () => void;
+}
+
+export const ProfileView: React.FC<ProfileViewProps> = ({ onSignOut }) => {
   const { state, updateProfile, saveWishCard, resetOnboarding } = useApp();
   const profile = state.profile;
   const [wishInput, setWishInput] = useState(state.wishCardContent);
@@ -108,13 +112,22 @@ export const ProfileView: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-4 border-t border-stone-100 flex justify-between">
+        <div className="pt-4 border-t border-stone-100 flex flex-wrap items-center justify-between gap-4">
           <button
             onClick={() => resetOnboarding()}
             className="text-stone-500 hover:text-stone-800 font-semibold text-sm"
           >
             Re-run Welcome Onboarding
           </button>
+          {onSignOut && (
+            <button
+              onClick={onSignOut}
+              className="inline-flex items-center gap-2 rounded-xl border border-rose-200 px-4 py-2.5 font-semibold text-rose-700 transition-colors hover:bg-rose-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
+            >
+              <LogOut className="h-4 w-4" />
+              Sign out
+            </button>
+          )}
         </div>
       </div>
 
