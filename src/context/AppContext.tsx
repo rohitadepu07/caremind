@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { AppState, AppMode, Language, Reminder, ConnectionQuest, MemoryItem, GardenPlant, GameScore, CaregiverAlert } from '../types';
 import { initialMockState } from '../mockData';
+import { supabase } from '../lib/supabase';
 
 interface AppContextType {
   state: AppState;
+  dataSyncError: string | null;
+  isDataLoading: boolean;
   setMode: (mode: AppMode) => void;
   updateProfile: (updates: Partial<AppState['profile']>) => void;
   completeActivity: (gameName: string, score: number, maxScore: number, timeSpent: number) => void;
@@ -23,26 +26,137 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+function getCachedState(userId?: string): AppState | null {
+  try {
+    const key = userId ? `CareMind_app_state_${userId}` : 'CareMind_app_state_v2';
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) as AppState : null;
+  } catch (error) {
+    console.error('Failed to load state from localStorage', error);
+    return null;
+  }
+}
+
+function createAccountState(): AppState {
+  return {
+    ...initialMockState,
+    profile: {
+      ...initialMockState.profile,
+      name: '',
+      age: 0,
+      location: '',
+      onboarded: false,
+    },
+    streakCount: 0,
+    streakHistory: [],
+    wishCardUnlocked: false,
+    wishCardContent: '',
+    gardenPlants: [],
+    reminders: [],
+    memories: [],
+    gameHistory: [],
+    alerts: [],
+  };
+}
+
+export const AppProvider: React.FC<{ children: React.ReactNode; userId?: string }> = ({ children, userId }) => {
   const [state, setState] = useState<AppState>(() => {
-    try {
-      const saved = localStorage.getItem('CareMind_app_state_v2');
-      if (saved) {
-        return JSON.parse(saved);
-      }
-    } catch (e) {
-      console.error('Failed to load state from localStorage', e);
-    }
-    return initialMockState;
+    return getCachedState() ?? initialMockState;
   });
+  const [storageReady, setStorageReady] = useState(!userId);
+  const [loadedUserId, setLoadedUserId] = useState<string | undefined>();
+  const [dataSyncError, setDataSyncError] = useState<string | null>(null);
 
   useEffect(() => {
-    try {
-      localStorage.setItem('CareMind_app_state_v2', JSON.stringify(state));
-    } catch (e) {
-      console.error('Failed to save state to localStorage', e);
+    let isActive = true;
+    setStorageReady(false);
+    setDataSyncError(null);
+
+    if (!userId) {
+      setState(getCachedState() ?? initialMockState);
+      setLoadedUserId(undefined);
+      setStorageReady(true);
+      return () => {
+        isActive = false;
+      };
     }
-  }, [state]);
+
+    const loadAccountState = async () => {
+      let nextState: AppState | null = null;
+      if (supabase) {
+        const { data, error } = await supabase
+          .from('caremind_user_data')
+          .select('app_state')
+          .eq('user_id', userId)
+          .maybeSingle();
+
+        if (error) {
+          console.error('Failed to load CareMind data from Supabase', error);
+          if (isActive) setDataSyncError('Could not load your saved data from Supabase. Using this device’s saved copy if available.');
+        } else if (data?.app_state) {
+          nextState = data.app_state as AppState;
+        }
+      }
+
+      if (!nextState) {
+        nextState = getCachedState(userId) ?? createAccountState();
+      }
+      if (isActive) {
+        setState(nextState);
+        setLoadedUserId(userId);
+        setStorageReady(true);
+      }
+    };
+
+    void loadAccountState().catch((error: unknown) => {
+      console.error('Unexpected error while loading CareMind data', error);
+      if (isActive) {
+        setDataSyncError('Could not load your account data. Please refresh to try again.');
+        setState(getCachedState(userId) ?? createAccountState());
+        setLoadedUserId(userId);
+        setStorageReady(true);
+      }
+    });
+
+    return () => {
+      isActive = false;
+    };
+  }, [userId]);
+
+  useEffect(() => {
+    if (!storageReady || loadedUserId !== userId) return;
+
+    const storageKey = userId ? `CareMind_app_state_${userId}` : 'CareMind_app_state_v2';
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    } catch (error) {
+      console.error('Failed to save state to localStorage', error);
+      setDataSyncError('Your browser could not save a local backup of your CareMind data.');
+    }
+
+    if (!userId || !supabase) return;
+
+    const timeout = window.setTimeout(() => {
+      void (async () => {
+        try {
+          const { error } = await supabase
+            .from('caremind_user_data')
+            .upsert({ user_id: userId, app_state: state, updated_at: new Date().toISOString() });
+          if (error) {
+            console.error('Failed to sync CareMind data to Supabase', error);
+            setDataSyncError('Your changes are saved on this device but could not sync to Supabase.');
+          } else {
+            setDataSyncError(null);
+          }
+        } catch (error) {
+          console.error('Unexpected error while syncing CareMind data', error);
+          setDataSyncError('Your changes are saved on this device but could not sync to Supabase.');
+        }
+      })();
+    }, 500);
+
+    return () => window.clearTimeout(timeout);
+  }, [state, userId, storageReady, loadedUserId]);
 
   // Voice speech synthesis helper
   const speak = (text: string) => {
@@ -290,6 +404,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     <AppContext.Provider
       value={{
         state,
+        dataSyncError,
+        isDataLoading: !storageReady || loadedUserId !== userId,
         setMode,
         updateProfile,
         completeActivity,

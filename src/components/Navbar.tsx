@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { Volume2, Shield, User } from 'lucide-react';
+import { Volume2, Shield, User, LogOut } from 'lucide-react';
 import logo from '../assets/logo.png';
 import { t } from '../translations';
 
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  onSignOut?: () => void;
 }
 
 function useIsDesktop() {
@@ -21,7 +22,7 @@ function useIsDesktop() {
   return isDesktop;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onSignOut }) => {
   const { state, setMode, speak, setVoiceActive, updateProfile } = useApp();
   const isElder = state.mode === 'elder';
   const isDesktop = useIsDesktop();
@@ -116,6 +117,22 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                   );
                 })}
               </nav>
+            )}
+
+            {onSignOut && (
+              <button
+                onClick={onSignOut}
+                aria-label="Sign out"
+                title="Sign out"
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  width: 38, height: 38, borderRadius: 12,
+                  border: '1px solid #d6e4dc', backgroundColor: '#ffffff',
+                  color: '#365e4d', cursor: 'pointer',
+                }}
+              >
+                <LogOut size={17} />
+              </button>
             )}
 
             {/* Right Controls */}
