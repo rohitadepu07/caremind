@@ -3,6 +3,13 @@ import { ArrowRight, Eye, EyeOff, Heart, Leaf, LockKeyhole, Mail, ShieldCheck } 
 import logo from '../assets/logo.png';
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
 
+function getAppRedirectUrl(): string {
+  const appPath = window.location.pathname.endsWith('/')
+    ? window.location.pathname
+    : `${window.location.pathname}/`;
+  return new URL(appPath, window.location.origin).toString();
+}
+
 interface LoginPageProps {
   onContinueAsGuest: () => void;
   isPasswordRecovery?: boolean;
@@ -74,7 +81,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
     setMessage('');
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin,
+        redirectTo: getAppRedirectUrl(),
       });
       if (error) throw error;
       setMessage('If an account exists for that address, a password reset link is on its way.');
@@ -97,7 +104,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin,
+          redirectTo: getAppRedirectUrl(),
         },
       });
       if (error) throw error;
